@@ -1,0 +1,325 @@
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Righteous&display=swap');
+
+:root {
+  --ff-h1: "Abril Fatface", cursive;
+  --ff-lyrics: "Righteous", cursive;
+  --ff-footer: "Abril Fatface", cursive;
+  
+  --fs-xxl: 4rem;
+  --fs-xl: 2rem;
+  --fs-600: 1.5rem;
+  --fs-500: 1.25rem;
+  --fs-400: 1rem;
+  --fs-300: 0.75rem;
+  --fs-sm: 0.5rem;
+  --fs-xs: 0.4rem;
+}
+
+
+html {
+  font-size: var(--fs-400);
+  background-image:
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.5), rgba(148, 91, 232, 0.4)), 
+      url('../../images/frances-gunn-QcBAZ7VREHQ-unsplash.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  font-family: sans-serif;
+}
+
+h1 {
+  text-align: center;
+  color: #ffc600;
+  text-shadow: 0 0 .125rem black;
+  text-transform: uppercase;
+  font-family: var(--ff-h1);
+  font-size: var(--fs-xl);
+  letter-spacing: .125rem;
+  background-color: rgba(0, 0, 0, 0.1);
+  margin: 0;
+  padding: 0;
+}
+
+footer {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.4);
+  width: 100%;
+  margin-top: auto;
+  text-align: center;
+  font-family: var(--ff-footer);
+  font-size: var(--fs-sm);
+}
+
+footer p {
+  font-size: var(--fs-400);
+  text-transform: uppercase;
+}
+
+footer a {
+  color: #ffc600;
+}
+
+/* Logo */
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1px;
+  margin: 1rem;
+}
+
+.image-parent {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.windmill {
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 14rem;
+}
+
+.windmill-sails {
+  position: absolute;
+  top: 8px;
+  left: 14px;
+  height: 9rem;
+  transform-origin: center;
+  transform-style: preserve-3d;
+  transition: all .07s ease;
+}
+
+.windmill-sails:hover {
+  animation: rotation 2s infinite linear;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(-360deg);
+  }
+}
+
+/* Keyboard Components */
+
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.keys {
+  display: flex;
+  width: 100vw;
+  justify-content: center;
+}
+
+.key {
+  display: flex;
+  border: .4rem solid black;
+  border-radius: .5rem;
+  margin: 0.5vh;
+  padding: 0;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: center;
+  transition: all .07s ease;
+  width: 8rem;
+  height: 5rem;
+  text-align: center;
+  color: white;
+  background: rgba(0,0,0,0.4);
+  text-shadow: 0 0 .5rem black;
+}
+
+kbd {
+  display: block;
+}
+
+.space {
+  visibility: hidden;
+}
+
+.playing {
+  transform: scale(1.1);
+  border-color: #00ff26;
+  box-shadow: 0 0 1rem #a7a7a7;
+}
+
+.lyrics {
+  font-size: var(--fs-sm);
+  font-family: var(--ff-lyrics);
+  text-transform: uppercase;
+  letter-spacing: .1rem;
+  padding: 0 0 1em 0;
+  width: 100%;
+  color: #ffc600;
+  margin: auto;
+}
+
+.footnotes {
+  display: flex;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  font-family: var(--ff-footer);
+  font-size: var(--fs-400);
+}
+
+.footnotes p {
+  display: inline-block;
+  text-transform: uppercase;
+  padding: 1px;
+  margin: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  letter-spacing: .1rem;
+}
+
+.footnotes a {
+  color: #ffc600;
+}
+
+ @media screen and (min-width: 2560px) {
+
+   .key {
+     width: 12rem;
+     height: 8rem;
+     font-size: var(--fs-xl);  
+   }
+
+   .lyrics {
+    font-size: var(--fs-500);
+   }
+
+ }
+
+ @media screen and (max-width: 2559px) {
+
+   .key {
+     font-size: var(--fs-500);
+   }
+
+   .lyrics {
+     font-size: var(--fs-300);
+   }
+
+ }
+
+ @media screen and (max-width: 820px) {
+  html {
+    background-image:
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.5), rgba(255, 117, 117, 0.25)),
+        url('../../images/frances-gunn-QcBAZ7VREHQ-unsplash.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  h1 {
+    font-size: var(--fs-500);
+  }
+  
+  .key {
+      width: 4rem;
+      height: 4rem;
+    }
+
+  .logo {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  .windmill {
+    height: 144px;
+  }
+
+  .windmill-sails {
+    top: 2px;
+    left: 6px;
+    height: 100px;
+  }
+
+  .lyrics {
+    font-size: var(--fs-xs);
+  }
+  
+  .footnotes {
+    font-size: var(--fs-sm);
+  }
+}
+
+  @media screen and (max-width: 480px) {
+
+    html {
+      background-position: bottom left;
+    }
+
+    h1 {
+      font-size: var(--fs-400);
+    }
+
+    .windmill{
+      height: 160px;
+    }
+
+    .windmill-sails {
+      top: 7px;
+      left: 12px;
+      height: 100px;
+    } 
+
+    .keys {
+      flex-wrap: wrap;
+      box-sizing: border-box;
+      flex-direction: row;
+      justify-content: center;
+    }
+
+    .key {
+      width: 6rem;
+      height: 3rem;
+    }
+
+    .space{
+      display: none;
+    }
+
+    .lyrics {
+      font-size: var(--fs-sm);
+    }
+  }
+
+  @media screen and (max-width: 320px) {
+    .key {
+        width: 4.5rem;
+      }
+    
+    .lyrics {
+      font-size: var(--fs-xs);
+    }
+  }

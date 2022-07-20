@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+
+:root {
+  --background-color: #000000;
+  --text-color: rgb(255, 255, 255);
+  --font-family: 'Righteous', cursive;
+}
+
+html{
+  background-color: var(--background-color);
+  font-family: var(--font-family);
+  color: var(--text-color);
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
+header {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+li {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}

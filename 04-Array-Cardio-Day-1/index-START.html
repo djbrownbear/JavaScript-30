@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Array Cardio 💪</title>
+</head>
+<body>
+  <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
+  <script>
+    // Get your shorts on - this is an array workout!
+    // ## Array Cardio Day 1
+
+    // Some data we can work with
+
+    const inventors = [
+      { first: 'Albert', last: 'Einstein', year: 1879, passed: 1955 },
+      { first: 'Isaac', last: 'Newton', year: 1643, passed: 1727 },
+      { first: 'Galileo', last: 'Galilei', year: 1564, passed: 1642 },
+      { first: 'Marie', last: 'Curie', year: 1867, passed: 1934 },
+      { first: 'Johannes', last: 'Kepler', year: 1571, passed: 1630 },
+      { first: 'Nicolaus', last: 'Copernicus', year: 1473, passed: 1543 },
+      { first: 'Max', last: 'Planck', year: 1858, passed: 1947 },
+      { first: 'Katherine', last: 'Blodgett', year: 1898, passed: 1979 },
+      { first: 'Ada', last: 'Lovelace', year: 1815, passed: 1852 },
+      { first: 'Sarah E.', last: 'Goode', year: 1855, passed: 1905 },
+      { first: 'Lise', last: 'Meitner', year: 1878, passed: 1968 },
+      { first: 'Hanna', last: 'Hammarström', year: 1829, passed: 1909 }
+    ];
+
+    const people = [
+      'Bernhard, Sandra', 'Bethea, Erin', 'Becker, Carl', 'Bentsen, Lloyd', 'Beckett, Samuel', 'Blake, William', 'Berger, Ric', 'Beddoes, Mick', 'Beethoven, Ludwig',
+      'Belloc, Hilaire', 'Begin, Menachem', 'Bellow, Saul', 'Benchley, Robert', 'Blair, Robert', 'Benenson, Peter', 'Benjamin, Walter', 'Berlin, Irving',
+      'Benn, Tony', 'Benson, Leana', 'Bent, Silas', 'Berle, Milton', 'Berry, Halle', 'Biko, Steve', 'Beck, Glenn', 'Bergman, Ingmar', 'Black, Elk', 'Berio, Luciano',
+      'Berne, Eric', 'Berra, Yogi', 'Berry, Wendell', 'Bevan, Aneurin', 'Ben-Gurion, David', 'Bevel, Ken', 'Biden, Joseph', 'Bennington, Chester', 'Bierce, Ambrose',
+      'Billings, Josh', 'Birrell, Augustine', 'Blair, Tony', 'Beecher, Henry', 'Biondo, Frank'
+    ];
+    
+    // Array.prototype.filter()
+    // 1a. Filter the list of inventors for those who were born in the 1500's
+    const l = inventors.filter((inventor) => (inventor.year >= 1500 && inventor.year < 1600));
+    console.table(l);
+
+    // Array.prototype.map()
+    // 2a. Give us an array of the inventors first and last names
+    const fullNames = inventors.map((inventor) => `${inventor.first} + ${inventor.last}`);
+    console.log("full name", fullNames);
+    // console.table(fullNames); // testing out console table
+
+    // Array.prototype.sort()
+    // 3a. Sort the inventors by birthdate, oldest to youngest
+    const sorted = inventors.sort((a,b) => a.year > b.year ? 1: -1); //fixed to compare year values 
+    console.table(sorted);
+
+    // Array.prototype.reduce()
+    // 4a. How many years did all the inventors live all together?
+    const totalYears = inventors.reduce((total, inventor) => {
+      const currentInventorYears = (inventor.passed - inventor.year);
+      // console.log(`${inventor.first} ${inventor.last} lived for ${currentInventorYears} years`); // test for 
+      return total + currentInventorYears;
+    }, 0);
+
+    console.log("Total Years Lived:", totalYears);
+
+    // 5a. Sort the inventors by years lived
+    const oldest = inventors.sort((a, b) => {
+      const lastInventor = a.passed - a.year;
+      const nextInventor = b.passed - b.year;
+      return lastInventor > nextInventor ? -1 : 1;
+    });
+    console.table(oldest);
+
+    // 6a. create a list of Boulevards in Paris that contain 'de' anywhere in the name
+    // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
+ 
+    const category = document.querySelector('.mw-category');
+    const links = Array.from(category.querySelectorAll('a'));
+    const de = links
+                .map(link => link.textContent)
+                .filter(streetName => streetName.includes('de'));
+    console.log(de);
+
+    // 7a. sort Exercise
+    // Sort the people alphabetically by last name
+    const peopleByLastName = people.sort((a,b) => a.split(',')[0] > b.split(',')[0] ? 1 : -1);  
+    console.log("by last name: ",peopleByLastName);
+
+    // alternative solution using function to retreive last name
+    //
+    //  function getLastName(name) {
+    //     if (typeof name === "string") {
+    //       return name.split(',')[0];
+    //     };
+    //   }
+    //   const peopleByLastName = people.sort((a, b) => getLastName(a) > getLastName(b) ? 1 : -1);
+    //   console.log("by last name: ", peopleByLastName);
+
+
+    // 8a. Reduce Exercise
+    // Sum up the instances of each of these
+    const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+    
+    const byCategory = data.reduce((catObj,category) => {
+      if (!catObj[category]) {
+        catObj[category] = 0;
+      }
+      catObj[category] = catObj[category] + 1;
+      return catObj;
+    }, {});
+
+    console.log(byCategory);
+
+
+    // Additional Reduce Exercises
+    // Source - https://coursework.vschool.io/array-reduce-exercises/
+
+    // 1b) Turn an array of numbers into a total of all the numbers
+    function total(arr) {
+      return arr.reduce((cumTotal, number) => cumTotal + number);
+    }
+
+    console.log(total([1, 2, 3])); // 6
+
+  // 2b) Turn an array of numbers into a long string of all those numbers.
+    function stringConcat(arr) {
+     return arr.reduce((concatStr, curStr) => concatStr.toString() + curStr.toString())
+    }
+
+    console.log(stringConcat([1, 2, 3])); // "123"
+
+  // 3b) Turn an array of voter objects into a count of how many people voted
+  // Note: You don't necessarily have to use reduce for this, so try to think of multiple ways you could solve this.
+  // function totalVotes(arr) {
+  //   let voteCounts = 0;
+  //   arr.reduce((obj, item) => {
+  //     if (item['voted']) {
+  //       voteCounts++
+  //       // console.log(`Found 1 more voter, there are now ${voteCounts} voters`)
+  //     }
+  //   }, {});   
+  //   return voteCounts
+  // }
+
+  // refactored above for practice
+  function totalVotes(arr) {
+  return arr.reduce((total, obj) => obj.voted === true ? total + 1 : total + 0 , 0);
+  }
+
+  var voters = [
+    { name: 'Bob', age: 30, voted: true },
+    { name: 'Jake', age: 32, voted: true },
+    { name: 'Kate', age: 25, voted: false },
+    { name: 'Sam', age: 20, voted: false },
+    { name: 'Phil', age: 21, voted: true },
+    { name: 'Ed', age: 55, voted: true },
+    { name: 'Tami', age: 54, voted: true },
+    { name: 'Mary', age: 31, voted: false },
+    { name: 'Becky', age: 43, voted: false },
+    { name: 'Joey', age: 41, voted: true },
+    { name: 'Jeff', age: 30, voted: true },
+    { name: 'Zack', age: 19, voted: false }
+  ];
+  console.log(totalVotes(voters)); // 7
+
+  // 4b) Given an array of all your wishlist items, figure out how much it would cost to just buy everything at once
+  // source for my approach: 
+  // https://www.codegrepper.com/code-examples/javascript/frameworks/nextjs/sum+nested+array+objects+keys+javascript
+
+  function shoppingSpree(arr) {
+    return arr.reduce((total, obj) => obj.price + total, 0 );
+  }
+
+  var wishlist = [
+    { title: "Tesla Model S", price: 90000 },
+    { title: "4 carat diamond ring", price: 45000 },
+    { title: "Fancy hacky Sack", price: 5 },
+    { title: "Gold fidgit spinner", price: 2000 },
+    { title: "A second Tesla Model S", price: 90000 }
+  ];
+
+  console.log(shoppingSpree(wishlist)); // 227005
+
+  // 5b) Given an array of arrays, flatten them into a single array
+  // Note: Take a look at Array.concat() to help with this one
+
+  // source for my approach: 
+  // https://dev.to/ramgendeploy/learn-javascript-reduce-method-with-5-examples-128n#flattened-an-array-of-arrays
+  // function flatten(arr) {
+  //   return arr.reduce((arr, nextArray) => arr.concat(nextArray), [])
+  // }
+
+  // refactored above for practice
+  const flatten = (arr) => arr.reduce((arr, nextArray) => arr.concat(nextArray), []);
+
+  var arrays = [
+    ["1", "2", "3"],
+    [true],
+    [4, 5, 6]
+  ];
+
+  console.log(flatten(arrays)); // ["1", "2", "3", true, 4, 5, 6];
+
+  //6b) Given an array of potential voters, return an object representing the results of the vote
+  // Include how many of the potential voters were in the ages 18 - 25, how many from 26 - 35, how many from 36 - 55, and how many of each of those age ranges actually voted.The resulting object containing this data should have 6 properties.See the example output at the bottom.
+  var voters = [
+    { name: 'Bob', age: 30, voted: true },
+    { name: 'Jake', age: 32, voted: true },
+    { name: 'Kate', age: 25, voted: false },
+    { name: 'Sam', age: 20, voted: false },
+    { name: 'Phil', age: 21, voted: true },
+    { name: 'Ed', age: 55, voted: true },
+    { name: 'Tami', age: 54, voted: true },
+    { name: 'Mary', age: 31, voted: false },
+    { name: 'Becky', age: 43, voted: false },
+    { name: 'Joey', age: 41, voted: true },
+    { name: 'Jeff', age: 30, voted: true },
+    { name: 'Zack', age: 19, voted: false }
+  ];
+
+  function voterResults(arr) {
+
+   return arr.reduce((accCount, obj) =>{
+      // age range | num of people by age | count votes by age range 
+      // 18 - 25 numYoungPeople && numYoungVotes
+      // 26 - 35 numMidsPeople && numMidVotesPeople
+      // 36 - 55 numOldsPeople && numOldVotesPeople
+
+      switch (true) {
+        case ((obj.age >=18) && (obj.age <=25)):
+          if(obj.voted) {
+            accCount.numYoungVotes++;
+          }
+          accCount.numYoungPeople++
+          break;
+        case ((obj.age >= 26) && (obj.age <= 35)):
+          if (obj.voted) {
+            accCount.numMidVotesPeople++;
+          }
+          accCount.numMidsPeople++;
+          break;
+        case ((obj.age >= 36) && (obj.age <= 55)):
+          if (obj.voted) {
+            accCount.numOldVotesPeople++;
+          }
+          accCount.numOldsPeople++;
+          break;
+        default:
+          console.log('hello');
+          break;
+      }
+      return accCount
+    }, {
+        numYoungVotes: 0,
+        numYoungPeople: 0,
+        numMidVotesPeople: 0,
+        numMidsPeople: 0,
+        numOldVotesPeople: 0,
+        numOldsPeople: 0
+      }
+    );
+  }
+
+  console.log(voterResults(voters)); // Returned value shown below:
+/*
+  { numYoungVotes: 1,
+    numYoungPeople: 4,
+    numMidVotesPeople: 3,
+    numMidsPeople: 4,
+    numOldVotesPeople: 3,
+    numOldsPeople: 4 
+  }
+  */
+
+</script>
+</body>
+</html>

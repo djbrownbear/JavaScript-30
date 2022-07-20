@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Scoped CSS Variables and JS</title>
+  </head>
+  <body>
+    <h2>Update CSS Variables with <span class='hl'>JS</span></h2>
+
+    <div class="controls">
+      <label for="height">Height:</label>
+      <input id="height" type="range" name="height" min="10" max="800" value="20" data-sizing="px">
+
+      <label for="width">Width:</label>
+      <input id="width" type="range" name="width" min="10" max="800" value="20" data-sizing="px">
+
+      <label for="positioning">Position:</label>
+      <input id="position" type="range" name="positioning" min="10" max="100" value="5" data-sizing="%">
+
+      <label for="blur">Blur:</label>
+      <input id="blur" type="range" name="blur" min="0" max="25" value="10" data-sizing="px">
+
+      <label for="base">Base Color</label>
+      <input id="base" type="color" name="base" value="#ffc600">
+
+      <label for="profile">Radius</label>
+      <input id="profile" type="number" name="profile" value="50" min="0" max="50" data-sizing="%">
+    </div>
+
+    <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
+
+    <style>
+
+      :root {
+        --base: #ffc600;
+        --height: 400px;
+        --width: 400px;
+        --positioning: 0%;
+        --blur: 0px;
+        --profile: 50%;
+      }
+
+      img {
+        height: var(--height);
+        width: var(--width);
+        object-position: var(--positioning);  
+        background: var(--base);
+        filter: blur(var(--blur));
+        object-fit: none;
+        border-radius: var(--profile);
+      }
+
+      .h1 {
+        color: var(--base);
+      }
+
+      /*
+        misc styles, nothing to do with CSS variables
+      */
+
+      body {
+        text-align: center;
+        background: #193549;
+        color: white;
+        font-family: 'helvetica neue', sans-serif;
+        font-weight: 100;
+        font-size: 50px;
+      }
+
+      .controls {
+        margin-bottom: 50px;
+      }
+
+      input {
+        width: 100px;
+      }
+    </style>
+
+    <script>
+      const inputs = document.querySelectorAll('.controls input');
+
+      function handleUpdate() {
+        const suffix = this.dataset.sizing || "";
+        console.log(this.name, suffix);
+        document.documentElement.style.setProperty(`--${this.name}`,this.value + suffix)
+      }
+
+      inputs.forEach(input => input.addEventListener('change',handleUpdate));
+      inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
+    </script>
+  </body>
+</html>
