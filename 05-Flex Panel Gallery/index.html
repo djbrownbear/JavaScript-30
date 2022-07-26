@@ -113,7 +113,7 @@
     }
 
     function getSeason(e) {
-      let curItem = e.path[1].children[1].innerHTML;
+      let curItem = e.composedPath()[1].children[1].innerHTML;
       let itemSeason;
       let curItemName = curItem.toLowerCase();
 
@@ -123,7 +123,7 @@
             ? `In Season` 
             : `Not In Season`);
           console.log(item.name, ": ", itemSeason ) 
-          return e.path[1].children[2].innerHTML = itemSeason; // update fruit/veg with in/out season status
+          return e.composedPath()[1].children[2].innerHTML = itemSeason; // update fruit/veg with in/out season status
         }
       });
     };
@@ -133,7 +133,7 @@
     const bgImages = document.querySelectorAll('.bg-img-container');
 
     function toggleBlur(e) {
-      let bgDiv = e.path[1].children[0];
+      let bgDiv = e.composedPath()[1].children[0];
       bgDiv.classList.toggle('blur');
     }
 
@@ -144,12 +144,12 @@
     }
 
     function toggleActive(e) {
-      console.log(e.propertyName);
+      // console.log(e.propertyName);
       if (e.propertyName.includes('flex')) {
         this.classList.toggle('open-active');
       }
     }
-
+    
     panels.forEach(panel => panel.addEventListener('click', toggleOpen));
     panels.forEach(panel => panel.addEventListener('transitionend', toggleActive));
     showMonth();

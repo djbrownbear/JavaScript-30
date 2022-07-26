@@ -158,21 +158,25 @@ h1 {
 .panel>*:nth-child(1) {
   transform: translateY(-100%); 
   opacity: 0%;
+  display: none;
 }
 
 .panel.open-active>*:nth-child(1) {
   transform: translateY(0);
   opacity: 100%;
+  display: flex;
 }
 
 .panel>*:last-child {
   transform: translateY(100%);
-  opacity: 0%
+  opacity: 0%;
+  display: none;
 }
 
 .panel.open-active>*:last-child {
   transform: translateY(0);
   opacity: 100%;
+  display: flex;
 }
 
 .panel p {
