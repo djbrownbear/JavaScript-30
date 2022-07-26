@@ -9,73 +9,80 @@
 </head>
 
 <body>
-  <div class="panels">
-    <div class="rows">
-      <div class="panel panel1">
-        <p>March - November</p>
-        <p>Strawberries</p>
-        <p>Dance</p>
-      </div>
-      <div class="panel panel2">
-        <p>January - December</p>
-        <p>Spinach</p>
-        <p>Receive</p>
-      </div>
-      <div class="panel panel3">
-        <p>January - December</p>
-        <p>Kale</p>
-        <p>Today</p>
-      </div>
-      <div class="panel panel4">
-        <p>May - October</p>
-        <p>Nectarines</p>
-        <p>You can</p>
-      </div>
+  <div class="container">
+    <div class="header-wrapper">
+      <header>
+        <h1>The Dirty Dozen - Northern California</h1>
+      </header>
     </div>
+    <div class="panels">
+      <div class="rows">
+        <div class="panel panel1">
+          <p>March - November</p>
+          <p>Strawberries</p>
+          <p></p>
+        </div>
+        <div class="panel panel2">
+          <p>January - December</p>
+          <p>Spinach</p>
+          <p></p>
+        </div>
+        <div class="panel panel3">
+          <p>January - December</p>
+          <p>Kale</p>
+          <p></p>
+        </div>
+        <div class="panel panel4">
+          <p>May - October</p>
+          <p>Nectarines</p>
+          <p></p>
+        </div>
+      </div>
 
-    <div class="rows">
-      <div class="panel panel5">
-        <p>August - November</p>
-        <p>Apples</p>
-        <p>Motion</p>
+      <div class="rows">
+        <div class="panel panel5">
+          <p>August - November</p>
+          <p>Apples</p>
+          <p></p>
+        </div>
+        <div class="panel panel6">
+          <p>July - December</p>
+          <p>Grapes</p>
+          <p></p>
+        </div>
+        <div class="panel panel7">
+          <p>April - July</p>
+          <p>Cherries</p>
+          <p></p>
+        </div>
+        <div class="panel panel8">
+          <p>May - October</p>
+          <p>Peaches</p>
+          <p></p>
+        </div>
       </div>
-      <div class="panel panel6">
-        <p>July - December</p>
-        <p>Grapes</p>
-        <p>Motion</p>
-      </div>
-      <div class="panel panel7">
-        <p>April - July</p>
-        <p>Cherries</p>
-        <p>Motion</p>
-      </div>
-      <div class="panel panel8">
-        <p>May - October</p>
-        <p>Peaches</p>
-        <p>Motion</p>
-      </div>
-    </div>
 
-    <div class="rows">
-      <div class="panel panel9">
-        <p>January - April<br>August - November</p>
-        <p>Pears</p>
-        <p>Motion</p>
-      </div>
-      <div class="panel panel10">
-        <p>May - December</p>
-        <p>Bell Peppers<br>&<br>Hot Peppers</p>
-        <p>Motion</p>
-      </div>
-      <div class="panel panel11">
-        <p>January - December</p>
-        <p>Celery</p>
-        <p>Motion</p>
-      </div>
-      <div class="panel panel12">
-        <p>April - November</p>
-        <p>Tomatoes</p>
-        <p>Motion</p>
+      <div class="rows">
+        <div class="panel panel9">
+          <p>January - April<br>August - November</p>
+          <p>Pears</p>
+          <p></p>
+        </div>
+        <div class="panel panel10">
+          <p>May - December</p>
+          <p>Bell Peppers<br>&<br>Hot Peppers</p>
+          <p></p>
+        </div>
+        <div class="panel panel11">
+          <p>January - December</p>
+          <p>Celery</p>
+          <p></p>
+        </div>
+        <div class="panel panel12">
+          <p>April - November</p>
+          <p>Tomatoes</p>
+          <p></p>
+        </div>
       </div>
     </div>
   </div>
@@ -108,14 +115,14 @@
     function getSeason(e) {
       let curItem = e.path[1].children[1].innerHTML;
       let itemSeason;
-      console.log(curItem);
 
       dirtyDozen.forEach((item) => { 
         if (curItem === item.name) {
           let itemSeason = (item.season.includes(6) 
-            ? `In Season.` 
-            : `Not In Season.`);
+            ? `In Season` 
+            : `Not In Season`);
           console.log(item.name, ": ", itemSeason ) 
+          return e.path[1].children[2].innerHTML = itemSeason;
         }
       });
     };
@@ -142,7 +149,6 @@
       }
     }
 
-    // bgImages.forEach(bgImage => bgImage.classList.add('blur'));
     panels.forEach(panel => panel.addEventListener('click', toggleOpen));
     panels.forEach(panel => panel.addEventListener('transitionend', toggleActive));
     showMonth();
