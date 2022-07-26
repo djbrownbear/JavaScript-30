@@ -115,14 +115,15 @@
     function getSeason(e) {
       let curItem = e.path[1].children[1].innerHTML;
       let itemSeason;
+      let curItemName = curItem.toLowerCase();
 
       dirtyDozen.forEach((item) => { 
-        if (curItem === item.name) {
+        if (curItemName.includes(item.name.toLowerCase())) {
           let itemSeason = (item.season.includes(6) 
             ? `In Season` 
             : `Not In Season`);
           console.log(item.name, ": ", itemSeason ) 
-          return e.path[1].children[2].innerHTML = itemSeason;
+          return e.path[1].children[2].innerHTML = itemSeason; // update fruit/veg with in/out season status
         }
       });
     };
