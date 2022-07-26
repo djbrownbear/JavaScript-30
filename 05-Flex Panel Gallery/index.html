@@ -81,6 +81,45 @@
   </div>
 
   <script>
+    
+    dirtyDozen = [
+      {name: "Strawberries", season: [2, 3, 4, 5, 6, 7, 8, 9, 10] },
+      {name: "Spinach", season:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] },
+      {name: "Kale", season: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] },
+      {name: "Nectarines", season: [4, 5, 6, 7, 8, 9] },
+      {name: "Apples", season: [7, 8, 9, 10, 11] },
+      {name: "Grapes", season: [6, 7, 8, 9, 10, 11] },
+      {name: "Cherries", season: [3, 4, 5, 6] },
+      {name: "Peaches", season: [4, 5, 6, 7, 8, 9] },
+      {name: "Pears", season: [0, 1, 2, 3, 7, 8, 9, 10] },
+      {name: "Peppers", season: [4, 5, 6, 7, 8, 9, 10, 11] },
+      {name: "Celery", season: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] },
+      {name: "Tomatoes", season: [3, 4, 5, 6, 7, 8, 9, 10] }
+  ]
+
+    function showMonth() {
+      const d = new Date();
+      const month = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      let monthName = month[d.getMonth()];
+      console.log(`The current month is ${monthName}`);
+      return d.getMonth();
+    }
+
+    function getSeason(e) {
+      let curItem = e.path[1].children[1].innerHTML;
+      let itemSeason;
+      console.log(curItem);
+
+      dirtyDozen.forEach((item) => { 
+        if (curItem === item.name) {
+          let itemSeason = (item.season.includes(6) 
+            ? `In Season.` 
+            : `Not In Season.`);
+          console.log(item.name, ": ", itemSeason ) 
+        }
+      });
+    };
+
     const panels = document.querySelectorAll('.panel');
 
     const bgImages = document.querySelectorAll('.bg-img-container');
@@ -93,6 +132,7 @@
     function toggleOpen(e) {
       this.classList.toggle('open');
       // toggleBlur(e);
+      getSeason(e);
     }
 
     function toggleActive(e) {
@@ -105,6 +145,7 @@
     // bgImages.forEach(bgImage => bgImage.classList.add('blur'));
     panels.forEach(panel => panel.addEventListener('click', toggleOpen));
     panels.forEach(panel => panel.addEventListener('transitionend', toggleActive));
+    showMonth();
 
   </script>
 
