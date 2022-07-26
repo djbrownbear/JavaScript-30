@@ -35,13 +35,18 @@ header {
 h1 {
   font-size: 2em;
   font-family: 'Bree Serif', serif;
-  background-color: rgba(0, 0, 0, 0.9);
   color: rgb(255,255,255);
   text-align: center;
   margin: 0;
-  padding: 6px;
   letter-spacing: 0.1rem;
   width: 100vw;
+}
+
+.header-wrapper {
+  margin: 0;
+  padding: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  padding: 24px 0;
 }
 
 .panels {
@@ -147,11 +152,6 @@ h1 {
 }
 
 .blur {
-  /* -webkit-filter: blur(2px);
-  -moz-filter: blur(2px);
-  -o-filter: blur(2px);
-  -ms-filter: blur(2px);
-  filter: blur(2px); */
   backdrop-filter: blur(2px);
 }
 
