@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Dirty Dozen</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style2.css">
+</head>
+
+<body>
+  <div class="panels">
+    <div class="rows">
+      <div class="panel panel1">
+        <p>March - November</p>
+        <p>Strawberries</p>
+        <p>Dance</p>
+      </div>
+      <div class="panel panel2">
+        <p>January - December</p>
+        <p>Spinach</p>
+        <p>Receive</p>
+      </div>
+      <div class="panel panel3">
+        <p>January - December</p>
+        <p>Kale</p>
+        <p>Today</p>
+      </div>
+      <div class="panel panel4">
+        <p>May - October</p>
+        <p>Nectarines</p>
+        <p>You can</p>
+      </div>
+    </div>
+
+    <div class="rows">
+      <div class="panel panel5">
+        <p>August - November</p>
+        <p>Apples</p>
+        <p>Motion</p>
+      </div>
+      <div class="panel panel6">
+        <p>July - December</p>
+        <p>Grapes</p>
+        <p>Motion</p>
+      </div>
+      <div class="panel panel7">
+        <p>April - July</p>
+        <p>Cherries</p>
+        <p>Motion</p>
+      </div>
+      <div class="panel panel8">
+        <p>May - October</p>
+        <p>Peaches</p>
+        <p>Motion</p>
+      </div>
+    </div>
+    
+    <div class="rows">
+      <div class="panel panel9">
+        <p>January - April<br>August - November</p>
+        <p>Pears</p>
+        <p>Motion</p>
+      </div>
+      <div class="panel panel10">
+        <p>May - December</p>
+        <p>Bell Peppers<br>&<br>Hot Peppers</p>
+        <p>Motion</p>
+      </div>
+      <div class="panel panel11">
+        <p>January - December</p>
+        <p>Celery</p>
+        <p>Motion</p>
+      </div>
+      <div class="panel panel12">
+        <p>April - November</p>
+        <p>Tomatoes</p>
+        <p>Motion</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const panels = document.querySelectorAll('.panel');
+
+    const bgImages = document.querySelectorAll('.bg-img-container');
+
+    function toggleBlur(e) {
+      let bgDiv = e.path[1].children[0];
+      bgDiv.classList.toggle('blur');
+    }
+
+    function toggleOpen(e) {
+      this.classList.toggle('open');
+      // toggleBlur(e);
+    }
+
+    function toggleActive(e) {
+      console.log(e.propertyName);
+      if (e.propertyName.includes('flex')) {
+        this.classList.toggle('open-active');
+      }
+    }
+
+    // bgImages.forEach(bgImage => bgImage.classList.add('blur'));
+    panels.forEach(panel => panel.addEventListener('click', toggleOpen));
+    panels.forEach(panel => panel.addEventListener('transitionend', toggleActive));
+
+  </script>
+
+  <!--  TODO 
+  add own pictures, 
+  add blur effect non-selected panels (see Day 1 & Day 3), -->
+
+</body>
+
+</html>
