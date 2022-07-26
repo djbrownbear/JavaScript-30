@@ -33,6 +33,7 @@ header {
 }
 
 h1 {
+  font-size: 2em;
   font-family: 'Bree Serif', serif;
   background-color: rgba(0, 0, 0, 0.9);
   color: rgb(255,255,255);
@@ -195,7 +196,17 @@ h1 {
   font-size: 24px;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 1024px) {
+  .panel p:nth-child(2) {
+      font-size: 2em;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+  h1 {
+    font-size: 1.5em;
+  }
+
   .panels {
     flex-direction: column;
     width: 100vw;
@@ -204,7 +215,39 @@ h1 {
   .rows {
     width: 100vw;
     flex-wrap: wrap;
-    flex: 1 1 auto;
+    flex: 1 0 auto;
+  }
+
+  .panel p {
+    font-size: 1em;
+    min-width: 50vw;
+  }
+
+  .panel.open {
+    flex: 1 0 auto;
+    font-size: 18px;
+  }
+
+  .panel p:nth-child(2) {
+    font-size: 2em;
+  }
+
+}
+
+@media only screen and (max-width: 600px) {
+ h1 {
+  font-size: 1.5em;
+ }
+ 
+  .panels {
+    flex-direction: column;
+    width: 100vw;
+  }
+
+  .rows {
+    width: 100vw;
+    flex-wrap: wrap;
+    flex: 1 0 auto;
   }
 
   .panel {
@@ -213,6 +256,7 @@ h1 {
 
   .panel p {
     font-size: 1em;
+    min-width: 100vw;
   }
 
   .panel.open {
