@@ -116,10 +116,11 @@
       let curItem = e.composedPath()[1].children[1].innerHTML;
       let itemSeason;
       let curItemName = curItem.toLowerCase();
+      let curMonth = showMonth();
 
       dirtyDozen.forEach((item) => { 
         if (curItemName.includes(item.name.toLowerCase())) {
-          let itemSeason = (item.season.includes(6) 
+          let itemSeason = (item.season.includes(curMonth) 
             ? `In Season` 
             : `Not In Season`);
           console.log(item.name, ": ", itemSeason ) 
