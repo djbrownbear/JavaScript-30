@@ -138,13 +138,17 @@
     }
 
     function toggleOpen(e) {
+      // this is to close other panels if they are already opened
+      panels.forEach(panel => {
+        if (this.children[1].innerHTML !== panel.children[1].innerHTML)
+          panel.classList.remove('open')
+      })
       this.classList.toggle('open');
       // toggleBlur(e);
       getSeason(e);
     }
 
     function toggleActive(e) {
-      // console.log(e.propertyName);
       if (e.propertyName.includes('flex')) {
         this.classList.toggle('open-active');
       }
