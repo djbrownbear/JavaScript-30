@@ -112,11 +112,12 @@
       return d.getMonth();
     }
 
+    const curMonth = showMonth();
+
     function getSeason(e) {
       let curItem = e.composedPath()[1].children[1].innerHTML;
       let itemSeason;
       let curItemName = curItem.toLowerCase();
-      let curMonth = showMonth();
 
       dirtyDozen.forEach((item) => { 
         if (curItemName.includes(item.name.toLowerCase())) {
@@ -157,7 +158,6 @@
     
     panels.forEach(panel => panel.addEventListener('click', toggleOpen));
     panels.forEach(panel => panel.addEventListener('transitionend', toggleActive));
-    showMonth();
 
   </script>
 
