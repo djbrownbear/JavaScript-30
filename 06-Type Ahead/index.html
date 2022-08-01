@@ -15,19 +15,22 @@
     </ul>
   </form>
 <script>
-const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+// const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+const elementEndpoint = '';
 
-const cities = [];
+const items = [];
 
-fetch(endpoint)
+fetch(elementEndpoint)
   .then((blob) => blob.json())
-  .then((data) => cities.push(...data));
+  .then((data) => items.push(...data));
 
-function findMatches(wordToMatch, cities) {
-  return cities.filter(place => {
+function findMatches(wordToMatch, items) {
+  return items.filter(item => {
     // here we need to figure out if the city or state matches what was searched
     const regex = new RegExp(wordToMatch, 'gi');
-    return place.city.match(regex) || place.state.match(regex);
+    return item.product_name.match(regex) 
+      || item.brands.match(regex)
+      || item.allergens.match(regex);
   });
 }
 
@@ -36,17 +39,17 @@ function numberWithCommas (x) {
 }
 
 function displayMatches() {
-  const matchArray = findMatches(this.value, cities);
-  const html = matchArray.map(place => {
+  const matchArray = findMatches(this.value, items);
+  const html = matchArray.map(item => {
     
     const regex = new RegExp(this.value,'gi');
-    const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
-    const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
+    const foodName = item.product_name.replace(regex, `<span class="hl">${this.value}</span>`);
+    const allergenName = item.allergens.replace(regex, `<span class="hl">${this.value}</span>`);
 
     return `
     <li> 
-      <span class="name">${cityName}, ${stateName}</span>
-      <span class="population">${numberWithCommas(place.population)}</span>  
+      <span class="name">${foodName}, ${allergenName}</span>
+      <span class="population">${numberWithCommas(item.nutriscore_score)}</span>  
     </li>
     `;
   }).join('');
