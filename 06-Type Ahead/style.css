@@ -1,6 +1,6 @@
 html {
   box-sizing: border-box;
-  background: #ffc600;
+  background: #00390a;
   font-family: 'helvetica neue';
   font-size: 20px;
   font-weight: 200;
@@ -8,6 +8,19 @@ html {
 
 *, *:before, *:after {
   box-sizing: inherit;
+}
+
+header {
+  text-align: center;
+  color: rgb(251, 251, 251);
+}
+
+a {
+  color: rgb(43, 255, 0);
+}
+
+a:visited {
+  color: rgb(255, 138, 4);
 }
 
 input {
@@ -65,10 +78,14 @@ input.search {
   background: linear-gradient(to top,  #ffffff 0%,#EFEFEF 100%);
 }
 
-span.population {
+span.score {
   font-size: 15px;
 }
 
 .hl {
   background: #ffc600;
+}
+
+.allergen {
+  color: rgb(255, 0, 0);
 }

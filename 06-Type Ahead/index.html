@@ -2,34 +2,38 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Type Ahead 👀</title>
+  <title>Food Allergen Type Ahead 👀</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
+  <header>
+    <h1>Food Allergen Lookup</h1>
+    <h2>Source: subset of data from <a href="https://world.openfoodfacts.org/data">OpenFoodFacts</a></h2>
+    <p>Note: this is for demo purposes only. Please consult your healthcare provider.</p>
+  </header>
   <form class="search-form">
-    <input type="text" class="search" placeholder="City or State">
+    <input type="text" class="search" placeholder="Food or Allergen">
     <ul class="suggestions">
-      <li>Filter for a city</li>
-      <li>or a state</li>
+      <li>Filter for a food</li>
+      <li>by product name</li>
+      <li>or allergen</li>
     </ul>
   </form>
 <script>
 // const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
-const elementEndpoint = '';
+const foodEndpoint = "https://raw.githubusercontent.com/djbrownbear/JavaScript-30/'main'/06-Type%20Ahead/2022_08_01_041734_OpenFoodFacts.json";
 
 const items = [];
 
-fetch(elementEndpoint)
+fetch(foodEndpoint)
   .then((blob) => blob.json())
   .then((data) => items.push(...data));
 
 function findMatches(wordToMatch, items) {
   return items.filter(item => {
-    // here we need to figure out if the city or state matches what was searched
+    // figure out if the food name or allergen matches what was searched
     const regex = new RegExp(wordToMatch, 'gi');
     return item.product_name.match(regex) 
-      || item.brands.match(regex)
       || item.allergens.match(regex);
   });
 }
@@ -44,12 +48,14 @@ function displayMatches() {
     
     const regex = new RegExp(this.value,'gi');
     const foodName = item.product_name.replace(regex, `<span class="hl">${this.value}</span>`);
-    const allergenName = item.allergens.replace(regex, `<span class="hl">${this.value}</span>`);
+    const allergenName = item.allergens.replace(regex, `<span class="hl allergen">${this.value}</span>`);
+    const brandName = item.brands ? item.brands.replace(regex, `<span class="hl">${this.value}</span>`) : 'N/A';
+    const nutriScore = item.nutriscore_score ? numberWithCommas(item.nutriscore_score) : '--';
 
     return `
     <li> 
-      <span class="name">${foodName}, ${allergenName}</span>
-      <span class="population">${numberWithCommas(item.nutriscore_score)}</span>  
+      <span class="name">${foodName} | ${brandName} |(${allergenName})</span>
+      <span class="score">${nutriScore}</span>
     </li>
     `;
   }).join('');
