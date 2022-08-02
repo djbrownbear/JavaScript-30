@@ -6,6 +6,11 @@
   --font-family: 'Righteous', cursive;
 }
 
+*, *::before, *::after {
+  padding: 0;
+  margin: 0;
+}
+
 html{
   background-color: var(--background-color);
   font-family: var(--font-family);
@@ -18,7 +23,8 @@ html{
   flex-direction: column;
   flex: 1;
   width: 100%;
-  justify-content: space-evenly;
+  justify-content: center;
+  align-items: center;
 }
 
 header {
@@ -27,12 +33,18 @@ header {
   width: 100%;
   top: 0;
   left: 0;
+  padding: 12px;
+  margin-bottom: 10px;
+}
+
+.projects {
+  justify-content: center;
+  align-items: center;
 }
 
 li {
-  padding: 0;
-  margin: 0;
-  border: 0;
+  list-style: inside;
+  padding: 6px;
 }
 
 li a {
