@@ -34,3 +34,19 @@ li {
   margin: 0;
   border: 0;
 }
+
+li a {
+  color: #3cff00;
+}
+
+li a:hover {
+  color:#ffffff;
+  transform: scale(1.1);
+  transition: all 0.5s ease;
+}
+
+li a:visited {
+  color: rgb(2, 119, 27);
+  transform: scale(1.1);
+  transition: all 0.5s ease;
+}
