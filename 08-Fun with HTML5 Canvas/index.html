@@ -32,14 +32,26 @@
     console.log(e);
     ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
 
-    ctx.beginPath();
-    // start from
-    ctx.moveTo(lastX, lastY);
-    // go to
-    ctx.lineTo(e.offsetX, e.offsetY);
-    ctx.stroke();
-    [lastX, lastY] = [e.offsetX, e.offsetY];
-    
+    if (e.type == 'mousedown' || e.type == 'mousemove') {
+      ctx.beginPath();
+      // start from
+      ctx.moveTo(lastX, lastY);
+      // go to
+      ctx.lineTo(e.offsetX, e.offsetY);
+      ctx.stroke();
+      [lastX, lastY] = [e.offsetX, e.offsetY];
+    } else if (e.type == 'touchstart' || e.type == 'touchmove') {
+      const evt = (typeof e.originalEvent === 'undefined') ? e : e.originalEvent; // added for browser compatibility
+      const touch = e.touches[0] || e.changedTouches[0];
+      ctx.beginPath();
+      // start from
+      ctx.moveTo(lastX, lastY);
+      // go to
+      ctx.lineTo(touch.pageX, touch.pageY);
+      ctx.stroke();
+      [lastX, lastY] = [touch.pageX, touch.pageY];      
+    }
+
     hue++;
     if (hue >= 360) {
       hue = 0;
@@ -58,10 +70,21 @@
     isDrawing = true;
     [lastX, lastY] = [e.offsetX, e.offsetY]
   });
+  canvas.addEventListener('touchstart', (e) => {
+      // handle mobile events
+      // source: https://stackoverflow.com/questions/41993176/determine-touch-position-on-tablets-with-javascript
+      isDrawing = true;
+      const evt = (typeof e.originalEvent === 'undefined') ? e : e.originalEvent;
+      const touch = evt.touches[0] || evt.changedTouches[0];
+      [lastX, lastY] = [touch.pageX, touch.pageY];
+  });
 
   canvas.addEventListener('mousemove', draw);
+  canvas.addEventListener('touchmove', draw);
+
   canvas.addEventListener('mouseup', () => isDrawing = false);
-  canvas.addEventListener('mouseout', ()=> isDrawing = false);
+  canvas.addEventListener('mouseout', () => isDrawing = false);
+  canvas.addEventListener('touchend', () => isDrawing = false);
   
   const btn = document.querySelector('#getWord');
   const prompt = document.querySelector('.prompt');
@@ -101,6 +124,7 @@
   }
 
   btn.addEventListener('click', getData);
+
 
 </script>
 
@@ -146,6 +170,7 @@
 
   canvas {
     box-sizing: outset;
+    background: whitesmoke;
   }
 
   .container {
