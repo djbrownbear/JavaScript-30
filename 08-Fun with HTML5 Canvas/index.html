@@ -75,31 +75,30 @@
   } 
 
   const getData = async() => {
-    prompt.innerText = 'Prompt is: '
+    // reset text
+    prompt.innerText = 'Prompt is: ';
     // connect to random words api
     // learn more: https://github.com/mcnaveen/Random-Words-API
-    // const myUrl  = "https://random-words-api.vercel.app/word/";
-    // const myParams = "noun";
+    const myUrl  = "https://random-words-api.vercel.app/word/";
+    const myParams = "noun";
 
-    // const response = await fetch(`${myUrl}${myParams ? myParams : ""}`);
-    // const data = await response.json();
-    // const results = [];
+    const response = await fetch(`${myUrl}${myParams ? myParams : ""}`);
+    const data = await response.json();
+    const results = [];
     
-    // if (response.status >= 200 && response.status < 400) {
-    //   data.forEach(result => {
-    //     console.log(result.word);
-    //     results.push(result.word);
-    //   })
-    // } else {
-    //   console.log('error')
-    // }
-    results = ['chicken'];
-    // const text = document.createTextNode(results);
+    if (response.status >= 200 && response.status < 400) {
+      data.forEach(result => {
+        console.log(result.word);
+        results.push(result.word);
+      })
+    } else {
+      console.log('error')
+    }
+
     prompt.innerText += results;
     togglePrompt();
-    // return results;
+    return results;
   }
-
 
   btn.addEventListener('click', getData);
 
@@ -138,7 +137,11 @@
   h1 {
     color: var(--color-accent);
     font-family: var(--ff-h1);
-    outline: 1px;
+  }
+
+  h3 {
+    color: var(--color-accent);
+    font-family: var(--ff-h1);
   }
 
   canvas {
