@@ -5,7 +5,12 @@
   <title>HTML5 Canvas</title>
 </head>
 <body>
-<canvas id="draw" width="800" height="800"></canvas>
+  <h1>Quick Draw</h1>
+  <div class="container">
+    <button class="btn" id="getWord" type="button">Generate Word</button>
+    <h3 class="prompt">Prompt</h3>
+  </div>
+  <canvas id="draw" width="800" height="800"></canvas>
 <script>
   const canvas = document.querySelector('#draw');
   const ctx = canvas.getContext('2d');
@@ -57,11 +62,96 @@
   canvas.addEventListener('mousemove', draw);
   canvas.addEventListener('mouseup', () => isDrawing = false);
   canvas.addEventListener('mouseout', ()=> isDrawing = false);
+
+  const getData = async() => {
+    // connect to random words api
+    // learn more: https://github.com/mcnaveen/Random-Words-API
+    const myUrl  = "https://random-words-api.vercel.app/word/";
+    const myParams = "noun";
+
+    const response = await fetch(`${myUrl}${myParams ? myParams : ""}`);
+    const data = await response.json();
+    const results = [];
+
+    if (response.status >= 200 && response.status < 400) {
+      data.forEach(result => {
+        console.log(result.word);
+        results.push(result.word);
+      })
+    } else {
+      console.log('error')
+    }
+    return results;
+  }
+
+  const btn = document.querySelector('#getWord');
+  btn.addEventListener('click',getData);
+
 </script>
 
 <style>
-  html, body {
+  @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Righteous&display=swap');
+
+  :root {
+  --ff-h1: "Abril Fatface", cursive;
+  --ff-main: "Abril Fatface", cursive;
+
+  --color-main: rgba(146, 146, 146, 0.8);
+  --color-accent: rgb(0, 150, 200);
+  }
+
+  html {
     margin: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--ff-main);
+    background-color: var(--color-main);
+  }
+
+  *, *:before,*:after {
+    padding: 0;
+    margin: 0;
+  }
+
+  h1 {
+    color: var(--color-accent);
+    font-family: var(--ff-h1);
+  }
+
+  canvas {
+    box-sizing: outset;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .container > * {
+    margin: 4px 0px; 
+  }
+
+  .btn {
+    padding: 10px;
+    border: none;
+    background-color:rgb(0, 59, 253);
+    color:rgb(255, 255, 255);
+    font-weight: 600;
+    border-radius: 8px;
+    transform: all 0.5s ease;
+    cursor: pointer;
+  }
+
+  .btn:hover {
+    filter: invert(1);
   }
 </style>
 
