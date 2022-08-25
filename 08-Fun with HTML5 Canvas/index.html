@@ -10,7 +10,7 @@
     <button class="btn" id="getWord" type="button">Generate Word</button>
     <h3 class="prompt" style="display:none; transform:all 0.7s ease;">Prompt is: </h3>
   </div>
-  <canvas id="draw" width="800" height="800"></canvas>
+  <canvas id="draw"></canvas>
 <script>
   const canvas = document.querySelector('#draw');
   const ctx = canvas.getContext('2d');
@@ -19,7 +19,7 @@
   ctx.strokeStyle = '#BADASS';
   ctx.lineJoin = 'round';
   ctx.lineCap = 'round';
-  ctx.lineWidth = 100;
+  ctx.lineWidth = 50;
 
   let isDrawing = false;
   let lastX = 0;
@@ -47,9 +47,9 @@
       // start from
       ctx.moveTo(lastX, lastY);
       // go to
-      ctx.lineTo(touch.pageX, touch.pageY);
+      ctx.lineTo(touch.clientX, touch.clientY);
       ctx.stroke();
-      [lastX, lastY] = [touch.pageX, touch.pageY];      
+      [lastX, lastY] = [touch.clientX, touch.clientY];      
     }
 
     hue++;
@@ -76,7 +76,7 @@
       isDrawing = true;
       const evt = (typeof e.originalEvent === 'undefined') ? e : e.originalEvent;
       const touch = evt.touches[0] || evt.changedTouches[0];
-      [lastX, lastY] = [touch.pageX, touch.pageY];
+      [lastX, lastY] = [touch.clientX, touch.clientY];
   });
 
   canvas.addEventListener('mousemove', draw);
@@ -171,6 +171,10 @@
   canvas {
     box-sizing: outset;
     background: whitesmoke;
+    width: 95vw;
+    height: 75vw;
+    border: 2px solid rgba(0, 0, 0, .8);
+    border-radius: 10px;
   }
 
   .container {
