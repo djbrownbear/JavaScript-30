@@ -10,17 +10,19 @@
   <div class="container">
     <button class="btn" id="getWord" type="button">Generate Word</button>
     <h3 class="prompt" style="display:none; transform:all 0.7s ease;">Prompt is: </h3>
+    <p class="countdown"></p>
   </div>
   <canvas id="draw"></canvas>
 <script>
   const canvas = document.querySelector('#draw');
+  canvas.width = window.screen.width - (window.screen.width * 0.1);
+  canvas.height = window.screen.width < 820 ? window.screen.height - (window.screen.height * 0.2) : window.screen.height - (window.screen.height * 0.25);
+  
   const ctx = canvas.getContext('2d');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
   ctx.strokeStyle = '#BADASS';
   ctx.lineJoin = 'round';
   ctx.lineCap = 'round';
-  ctx.lineWidth = 50;
+  ctx.lineWidth = 10;
 
   let isDrawing = false;
   let lastX = 0;
@@ -30,35 +32,22 @@
 
   function draw(e) {
     if (!isDrawing) return; // stop the fn from running when they are not moused down
-    console.log(e);
     ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
 
-    if (e.type == 'mousedown' || e.type == 'mousemove') {
-      ctx.beginPath();
-      // start from
-      ctx.moveTo(lastX, lastY);
-      // go to
-      ctx.lineTo(e.offsetX, e.offsetY);
-      ctx.stroke();
-      [lastX, lastY] = [e.offsetX, e.offsetY];
-    } else if (e.type == 'touchstart' || e.type == 'touchmove') {
-      const evt = (typeof e.originalEvent === 'undefined') ? e : e.originalEvent; // added for browser compatibility
-      const touch = e.touches[0] || e.changedTouches[0];
-      ctx.beginPath();
-      // start from
-      ctx.moveTo(lastX, lastY);
-      // go to
-      ctx.lineTo(touch.clientX, touch.clientY);
-      ctx.stroke();
-      [lastX, lastY] = [touch.clientX, touch.clientY];      
-    }
+    ctx.beginPath();
+    // start from
+    ctx.moveTo(lastX, lastY);
+    // go to
+    ctx.lineTo(e.offsetX, e.offsetY);
+    ctx.stroke();
+    [lastX, lastY] = [e.offsetX, e.offsetY];
 
     hue++;
     if (hue >= 360) {
       hue = 0;
     }
 
-    if (ctx.lineWidth >= 100 || ctx.lineWidth <= 1) {
+    if (ctx.lineWidth >= 70 || ctx.lineWidth <= 8) {
       direction = !direction;
     }
     if (direction) {
@@ -67,25 +56,19 @@
       ctx.lineWidth--;
     }
   }
-  canvas.addEventListener('mousedown', (e) => {
+  canvas.addEventListener(('pointerdown'), (e) => {
     isDrawing = true;
     [lastX, lastY] = [e.offsetX, e.offsetY]
   });
-  canvas.addEventListener('touchstart', (e) => {
-      // handle mobile events
-      // source: https://stackoverflow.com/questions/41993176/determine-touch-position-on-tablets-with-javascript
-      isDrawing = true;
-      const evt = (typeof e.originalEvent === 'undefined') ? e : e.originalEvent;
-      const touch = evt.touches[0] || evt.changedTouches[0];
-      [lastX, lastY] = [touch.clientX, touch.clientY];
-  });
 
-  canvas.addEventListener('mousemove', draw);
-  canvas.addEventListener('touchmove', draw);
-
-  canvas.addEventListener('mouseup', () => isDrawing = false);
-  canvas.addEventListener('mouseout', () => isDrawing = false);
-  canvas.addEventListener('touchend', () => isDrawing = false);
+  canvas.addEventListener('pointermove', (e) => draw(e));
+  canvas.addEventListener('pointerup', () => isDrawing = false);
+  canvas.addEventListener('pointerout', () => isDrawing = false);
+  
+  canvas.addEventListener('touchstart', function (event) { event.preventDefault() });
+  canvas.addEventListener('touchmove',  function (event) { event.preventDefault() });
+  canvas.addEventListener('touchend', function (event) { event.preventDefault() });
+  canvas.addEventListener('touchcancel', function (event) { event.preventDefault() });
   
   const btn = document.querySelector('#getWord');
   const prompt = document.querySelector('.prompt');
@@ -125,6 +108,13 @@
   }
 
   btn.addEventListener('click', getData);
+
+  const counter = document.getElementsByClassName('.countdown');
+  
+  function countDown(startNum=10,endNum=0) {
+    forEach(i <= startNum)
+    console.log(start)
+  }
 
 
 </script>
@@ -188,7 +178,7 @@
   }
 
   .container > * {
-    margin: 4px 0px; 
+    margin: 8px 0px; 
   }
 
   .btn {
