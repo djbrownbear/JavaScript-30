@@ -10,7 +10,7 @@
   <div class="container">
     <button class="btn" id="getWord" type="button">Generate Word</button>
     <h3 class="prompt" style="display:none; transform:all 0.7s ease;">Prompt is: </h3>
-    <p class="countdown"></p>
+    <div class="countdown"></div>
   </div>
   <canvas id="draw"></canvas>
 <script>
@@ -31,6 +31,7 @@
   let direction = true;
 
   function draw(e) {
+    (isTimeOut ? isDrawing = false: isDrawing);
     if (!isDrawing) return; // stop the fn from running when they are not moused down
     ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
 
@@ -104,17 +105,33 @@
 
     prompt.innerText += results;
     togglePrompt();
+    countDown();
     return results;
   }
-
   btn.addEventListener('click', getData);
 
-  const counter = document.getElementsByClassName('.countdown');
+  const counter = document.querySelector('.countdown');
   
-  function countDown(startNum=10,endNum=0) {
-    forEach(i <= startNum)
-    console.log(start)
-  }
+  let isTimeOut = false;
+
+  const countDown = () => { 
+    let timerLength = 20;
+    const timerLengthToMilliseconds = timerLength * 1000;
+    
+    counter.innerHTML = timerLength;
+    const interval = setInterval(function() {
+      console.log(timerLength);
+      timerLength --;
+      counter.innerHTML = timerLength;
+      if ( timerLength == 5 ) {
+        counter.classList.add("time-warning");
+      } else if ( timerLength == 0 ) {
+        counter.innerHTML = "Time is up!";
+        isTimeOut = true;
+        clearInterval(interval);
+      }
+    }, 1000);
+}
 
 
 </script>
@@ -128,6 +145,7 @@
 
   --color-main: rgba(146, 146, 146, 0.8);
   --color-accent: rgb(255, 255, 255);
+  --color-red: rgb(252, 25, 25);
   }
 
   html {
@@ -175,6 +193,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    transition: all 0.5s ease;
   }
 
   .container > * {
@@ -194,6 +213,11 @@
 
   .btn:hover {
     filter: invert(1);
+  }
+
+  .time-warning {
+    transform: scale(1.2);
+    color: var(--color-red);
   }
 </style>
 
