@@ -8,9 +8,14 @@
 <body>
   <h1>Quick, Draw</h1>
   <div class="container">
-    <button class="btn" id="getWord" type="button">Generate Word</button>
-    <h3 class="prompt" style="display:none; transform:all 0.7s ease;">Prompt is: </h3>
-    <div class="countdown"></div>
+    <div class="container row">
+      <button class="btn" id="getWord" type="button">Generate Word</button>
+      <button class="btn" id="reset" type="button">Reset</button>
+    </div>
+    <div class="container prompt-wrapper" style="visibility: hidden;">
+      <h3 class="prompt" style="transform:all 0.7s ease;">Prompt is: </h3>
+      <div class="countdown"></div>
+    </div>
   </div>
   <canvas id="draw"></canvas>
 <script>
@@ -29,6 +34,7 @@
   let lasyY = 0;
   let hue = 0;
   let direction = true;
+  let showPrompt = false;
 
   function draw(e) {
     (isTimeOut ? isDrawing = false: isDrawing);
@@ -72,19 +78,27 @@
   canvas.addEventListener('touchcancel', function (event) { event.preventDefault() });
   
   const btn = document.querySelector('#getWord');
+  const btnReset = document.querySelector('#reset');
   const prompt = document.querySelector('.prompt');
 
   const togglePrompt = () => {
-    if (prompt.style.display === "none") {
-      prompt.style.display = "block";
+    if (showPrompt) {
+      prompt.parentElement.style.visibility = "visible";
     } else {
-      prompt.style.display = "none";
+      prompt.parentElement.style.visibility = "hidden";
     }
   } 
 
-  const getData = async() => {
-    // reset text
-    prompt.innerText = 'Prompt is: ';
+  const toggle = () => (showPrompt = (!showPrompt));
+  
+  const resetInfo = () => {
+    showPrompt = false;
+    togglePrompt();
+    isTimeOut = true;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  };
+
+  const getData = async() => { 
     // connect to random words api
     // learn more: https://github.com/mcnaveen/Random-Words-API
     const myUrl  = "https://random-words-api.vercel.app/word/";
@@ -103,12 +117,15 @@
       console.log('error')
     }
 
-    prompt.innerText += results;
     togglePrompt();
+    prompt.innerHTML = "Prompt is: ";
+    prompt.innerHTML += results;
     countDown();
     return results;
   }
+  btn.addEventListener('click', toggle);
   btn.addEventListener('click', getData);
+  btnReset.addEventListener('click', resetInfo);
 
   const counter = document.querySelector('.countdown');
   
@@ -117,11 +134,10 @@
   const countDown = () => { 
     let timerLength = 20;
     const timerLengthToMilliseconds = timerLength * 1000;
-    
     counter.innerHTML = timerLength;
     const interval = setInterval(function() {
-      console.log(timerLength);
       timerLength --;
+      console.log(timerLength);
       counter.innerHTML = timerLength;
       if ( timerLength == 5 ) {
         counter.classList.add("time-warning");
@@ -129,10 +145,12 @@
         counter.innerHTML = "Time is up!";
         isTimeOut = true;
         clearInterval(interval);
+      } else if ( isTimeOut ) {
+        clearInterval(interval);
       }
     }, 1000);
+  isTimeOut = false;
 }
-
 
 </script>
 
@@ -168,15 +186,18 @@
   }
 
   h1 {
+    margin: 10px 0;
     color: var(--color-accent);
     font-family: var(--ff-h1);
     text-shadow: 4px 1px 4px black;
+    letter-spacing: 0.05rem;
   }
 
   h3 {
     color: var(--color-accent);
     font-family: var(--ff-h1);
-    text-shadow: 0px 1px 4px black;
+    text-shadow: 0px 1px 1px black;
+    letter-spacing: 0.05rem;
   }
 
   canvas {
@@ -194,11 +215,28 @@
     justify-content: center;
     align-items: center;
     transition: all 0.5s ease;
+    width: 100%;
   }
 
   .container > * {
-    margin: 8px 0px; 
+    margin: 8px 0px;
   }
+
+  .container.row {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .container.row > * {
+    margin: 0 4px;
+    flex: 2;
+    max-width: 10em;
+  }
+
+  .container.prompt-wrapper {
+    margin-top: 0;
+  }
+
 
   .btn {
     padding: 10px;
