@@ -8,7 +8,7 @@
   --fs-xxl: 4rem;
   --fs-xl: 2rem;
   --fs-600: 1.5rem;
-  --fs-500: 1.25rem;
+  --fs-500: 1.2rem;
   --fs-400: 1rem;
   --fs-300: 0.75rem;
   --fs-sm: 0.5rem;
@@ -32,11 +32,11 @@ html {
 body {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   margin: 0;
   padding: 0;
-  min-height: 100%;
+  min-height: 100vh;
   font-family: sans-serif;
 }
 
@@ -175,6 +175,7 @@ kbd {
   text-align: center;
   font-family: var(--ff-footer);
   font-size: var(--fs-400);
+  padding-top: 30px;
 }
 
 .footnotes p {
@@ -215,6 +216,18 @@ kbd {
    }
 
  }
+
+  @media screen and (max-width: 1024px) {
+
+    .key {
+      font-size: var(--fs-300);
+    }
+
+    .lyrics {
+      font-size: var(--fs-sm);
+    }
+
+  }
 
  @media screen and (max-width: 820px) {
   html {
