@@ -90,7 +90,7 @@
             <kbd>L</kbd>
             <span class="lyrics">Woof</span>
           </div>
-          <div data-key="186" class="key">
+          <div data-key="59" class="key">
             <kbd>;</kbd>
             <span class="lyrics">Baa</span>
           </div>
@@ -123,7 +123,7 @@
     <audio data-key="74" src="sounds/farm/Oink.wav"></audio>
     <audio data-key="75" src="sounds/farm/Moo.wav"></audio>
     <audio data-key="76" src="sounds/farm/Woof.wav"></audio>
-    <audio data-key="186" src="sounds/farm/Baa.wav"></audio>
+    <audio data-key="59" src="sounds/farm/Baa.wav"></audio>
 
     <script>
 
@@ -131,14 +131,14 @@
         let audio;
         let key;
         if (event.type =="keydown") {
-          let altKeyCode = event.keyCode
+          let altKeyCode = event.keyCode;
           if (event.keyCode === 186) {
             altKeyCode = 59;
           } else if (event.keyCode === 188) {
-            altKeyCode = 108
+            altKeyCode = 108;
           }
-          audio = document.querySelector(`audio[data-key="${event.keyCode}"`);
-          key = document.querySelector(`.key[data-key="${event.keyCode}"`);
+          audio = document.querySelector(`audio[data-key="${altKeyCode}"`);
+          key = document.querySelector(`.key[data-key="${altKeyCode}"`);
         } else if (event.type === "click" || event.type === "touchstart") {
           let keyCode = event.composedPath()[1].dataset.key || event.composedPath()[0].dataset.key 
 
