@@ -315,7 +315,7 @@ kbd {
 
   @media screen and (max-width: 320px) {
     .key {
-        width: 5 rem;
+        width: 5rem;
       }
     
     .lyrics {
