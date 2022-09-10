@@ -27,6 +27,10 @@ html{
   align-items: center;
 }
 
+.container.inner {
+  padding-bottom: 20px;
+}
+
 header {
   position: relative;
   z-index: 1;
