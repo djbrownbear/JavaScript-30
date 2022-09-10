@@ -222,10 +222,6 @@ kbd {
      font-size: var(--fs-500);
    }
 
-   .lyrics {
-     font-size: var(--fs-300);
-   }
-
  }
 
   @media screen and (max-width: 1024px) {
