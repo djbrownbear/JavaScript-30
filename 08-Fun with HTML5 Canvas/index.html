@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>HTML5 Canvas</title>
+  <title>Quick, Draw</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
@@ -15,6 +15,16 @@
     <div class="container prompt-wrapper" style="visibility: hidden;">
       <h3 class="prompt" style="transform:all 0.7s ease;">Prompt is: </h3>
       <div class="countdown"></div>
+    </div>
+    <div class="container controls">
+      <label for="width">Stroke Width:</label>
+      <input id="width" type="range" name="width" min="0" max="70" value="10">
+    
+      <label for="color">Pen Color:</label>
+      <input id="color" type="color" name="color" value="#00000">
+
+      <label for="bg-color">Canvas Background Color:</label>
+      <input id="bg-color" type="color" name="bg-color" value="#ffffff">   
     </div>
   </div>
   <canvas id="draw"></canvas>
@@ -35,11 +45,16 @@
   let hue = 0;
   let direction = true;
   let showPrompt = false;
+  let isRandomColor = true;
 
   function draw(e) {
     (isTimeOut ? isDrawing = false: isDrawing);
     if (!isDrawing) return; // stop the fn from running when they are not moused down
-    ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+    if (isRandomColor) {
+      ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+    } else {
+      ctx.strokeStyle ;
+    }
 
     ctx.beginPath();
     // start from
@@ -57,11 +72,11 @@
     if (ctx.lineWidth >= 70 || ctx.lineWidth <= 8) {
       direction = !direction;
     }
-    if (direction) {
-      ctx.lineWidth++;
-    } else {
-      ctx.lineWidth--;
-    }
+    // if (direction) {
+    //   ctx.lineWidth++;
+    // } else {
+    //   ctx.lineWidth--;
+    // }
   }
   canvas.addEventListener(('pointerdown'), (e) => {
     isDrawing = true;
@@ -154,6 +169,29 @@
 
 </script>
 
+<script>
+  const inputs = document.querySelectorAll('.controls input');
+
+  function handleUpdate() {
+    // update the canvas properties based on user input
+    switch (this.name) {
+      case "width":
+        return ctx.lineWidth = this.value;
+      case "color":
+        ctx.strokeStyle = this.value;
+        isRandomColor = false; // override random color generator
+        return ctx.strokeStyle;
+      case "bg-color":
+        return canvas.style.background = this.value;
+      default:
+        return ;
+    }
+  }
+
+  inputs.forEach(input => input.addEventListener('change', handleUpdate));
+  inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
+</script>
+
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Righteous&display=swap');
 
@@ -164,6 +202,7 @@
   --color-main: rgba(146, 146, 146, 0.8);
   --color-accent: rgb(255, 255, 255);
   --color-red: rgb(252, 25, 25);
+  --bg-canvas: whitesmoke;
   }
 
   html {
@@ -202,7 +241,7 @@
 
   canvas {
     box-sizing: outset;
-    background: whitesmoke;
+    background: var(--bg-canvas);
     width: 90vw;
     max-height: 90vw;
     border: 2px solid rgba(0, 0, 0, .8);
@@ -237,6 +276,11 @@
     margin-top: 0;
   }
 
+  .controls {
+    color: var(--color-accent);
+    text-shadow: 0px 1px 1px black;
+    flex-direction: row;
+  }
 
   .btn {
     padding: 10px;
@@ -256,6 +300,12 @@
   .time-warning {
     transform: scale(1.2);
     color: var(--color-red);
+  }
+
+  @media screen and (max-width: 820px) {
+    .controls {
+      flex-direction: column;
+    }
   }
 </style>
 
