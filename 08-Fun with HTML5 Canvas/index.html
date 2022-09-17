@@ -47,7 +47,7 @@
 <script>
   const canvas = document.querySelector('#draw');
   canvas.width = window.screen.width - (window.screen.width * 0.1);
-  canvas.height = window.screen.width < 820 ? window.screen.height - (window.screen.height * .35) : window.screen.height - (window.screen.height * 0.25);
+  canvas.height = window.screen.width < 820 ? window.screen.height - (window.screen.height * .4) : window.screen.height - (window.screen.height * 0.25);
   
   const ctx = canvas.getContext('2d');
   ctx.strokeStyle = '#BADASS';
@@ -239,6 +239,7 @@
   html {
     margin: 0;
     box-sizing: border-box;
+    height: 100vh;
   }
 
   body {
@@ -248,7 +249,7 @@
     align-items: center;
     font-family: var(--ff-main);
     background-color: var(--color-main);
-    max-height: 100vh;
+    min-height: 100vh;
   }
 
   *, *:before,*:after {
@@ -276,6 +277,8 @@
     background: var(--bg-canvas);
     border: 2px solid rgba(0, 0, 0, .8);
     border-radius: 10px;
+    margin-bottom: 20px;
+    width: 90vw;
   }
 
   .container {
