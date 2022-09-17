@@ -4,8 +4,34 @@
   <meta charset="UTF-8">
   <title>Quick, Draw</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/b5be74ae1a.js" crossorigin="anonymous"></script>
 </head>
 <body>
+  <nav class="nav-bar">
+    <div class="menu-inner">
+      <div class="menu-content-wrapper">
+        <div class="top-bar">
+          <button class="btn btn-menu" type="button">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+        <ul class="menu-main controls">
+          <li>
+            <label for="width">Stroke Width:</label>
+            <input id="width" type="range" name="width" min="0" max="70" value="10">
+          </li>
+          <li>
+            <label for="color">Pen Color:</label>
+            <input id="color" type="color" name="color" value="#00000">
+          </li>
+          <li>
+            <label for="bg-color">Canvas Background Color:</label>
+            <input id="bg-color" type="color" name="bg-color" value="#ffffff">
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
   <h1>Quick, Draw</h1>
   <div class="container">
     <div class="container row">
@@ -16,22 +42,12 @@
       <h3 class="prompt" style="transform:all 0.7s ease;">Prompt is: </h3>
       <div class="countdown"></div>
     </div>
-    <div class="container controls">
-      <label for="width">Stroke Width:</label>
-      <input id="width" type="range" name="width" min="0" max="70" value="10">
-    
-      <label for="color">Pen Color:</label>
-      <input id="color" type="color" name="color" value="#00000">
-
-      <label for="bg-color">Canvas Background Color:</label>
-      <input id="bg-color" type="color" name="bg-color" value="#ffffff">   
-    </div>
   </div>
   <canvas id="draw"></canvas>
 <script>
   const canvas = document.querySelector('#draw');
   canvas.width = window.screen.width - (window.screen.width * 0.1);
-  canvas.height = window.screen.width < 820 ? window.screen.height - (window.screen.height * 0.2) : window.screen.height - (window.screen.height * 0.25);
+  canvas.height = window.screen.width < 820 ? window.screen.height - (window.screen.height * .5) : window.screen.height - (window.screen.height * 0.25);
   
   const ctx = canvas.getContext('2d');
   ctx.strokeStyle = '#BADASS';
@@ -111,6 +127,7 @@
     togglePrompt();
     isTimeOut = true;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    isTimeOut = false;
   };
 
   const getData = async() => { 
@@ -190,6 +207,20 @@
 
   inputs.forEach(input => input.addEventListener('change', handleUpdate));
   inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
+</script>
+
+<script>
+  // script to toggle mobile menu
+  navbar = document.querySelector(".nav-bar");
+  let isOpen = false;
+
+  function toggleMenu(e) {
+    isOpen = !isOpen;
+    navbar.classList.toggle("responsive");
+  }
+
+  navbar.addEventListener('click', toggleMenu);
+
 </script>
 
 <style>
@@ -277,9 +308,23 @@
   }
 
   .controls {
+    display: flex;
     color: var(--color-accent);
     text-shadow: 0px 1px 1px black;
     flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  .controls li {
+    display: flex;
+    list-style: none;
+    padding: 10px 0;
+    align-items: center;
+  }
+
+  .controls li label {
+    padding: 0 8px;
   }
 
   .btn {
@@ -302,8 +347,95 @@
     color: var(--color-red);
   }
 
+  .nav-bar {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    align-items: center;
+    background: rgba(0, 0, 0);
+  }
+
+  .menu-inner {
+    width: 100%;
+  }
+
+  .top-bar {
+    display: none;
+  }
+
   @media screen and (max-width: 820px) {
     .controls {
+      flex-direction: column;
+    }
+
+    .nav-bar {
+      height: 50px;
+    }
+
+    .nav-bar .menu-content-wrapper {
+      background: rgba(0, 0, 0, .8);
+      color: var(--color-main);
+      top: 0;
+      right: -1000px;
+      transition: all 0.4s ease;
+      width: 100%;
+      height: 100%;
+      z-index: 500;
+      justify-content: flex-start;
+      transition: all 0.3s ease;
+      padding: 8px 0;
+    }
+
+    .nav-bar .menu-main {
+      width: 100%;
+      display: none;
+    }
+
+   .nav-bar .menu-main li > * {
+      display: block;
+      letter-spacing: 0.4px;
+      text-align: left;
+      padding-bottom: 4px;
+      border-bottom: none;
+    }
+
+    .controls li {
+      flex-direction: column;
+      margin-right: auto;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .controls li label {
+      padding-left: 0;
+    }
+
+    .top-bar {
+      display: flex;
+      margin: 0;
+      margin-left: auto;
+    }
+
+    .top-bar > .btn.btn-menu {
+      margin-left: auto;
+      margin-right: 10px;
+    }
+
+    .nav-bar.responsive .menu-content-wrapper {
+      overflow-y: scroll;
+      position: fixed;
+      top: 8px;
+      right: -100px;
+      flex-direction: column;
+      padding: 0 20px;
+    }    
+
+    .nav-bar.responsive .btn.btn-menu  {
+      margin-right: 90px;
+    }    
+
+    .nav-bar.responsive .menu-main  {
+      display: flex;
       flex-direction: column;
     }
   }
