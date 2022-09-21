@@ -12,6 +12,32 @@
       background: #ffc600;
     }
 
+    .actions {
+      display: flex;  
+      justify-content: center;
+      padding: 10px 0;
+      gap: 1em;
+    }
+
+    .actions button {
+      margin-top: 10px;
+      padding: 10px;
+      border: none;
+      background-color: rgba(255, 255, 255, 0.8);
+      color: #272727;
+      font-weight: 600;
+      border-radius: 8px;
+      width: 10rem;
+      transform: all 0.5s ease;
+      cursor: pointer;
+    }
+
+    .actions button:hover {
+      background-color: rgba(4, 0, 234, 0.8);
+      color: #dfdfdf;
+      transform: scale(1.1);
+    }
+
     .inbox {
       max-width: 400px;
       margin: 50px auto;
@@ -50,6 +76,11 @@
       border-left: 1px solid #D1E2FF;
     }
   </style>
+
+  <div class="actions">
+    <button class="select-all" type="button">Select All</button>
+    <button class="clear-selection" type="button">Clear Selection</button>
+  </div>
    <!--
    The following is a common layout you would see in an email client.
 
@@ -97,14 +128,45 @@
 
 <script>
   const checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]');
+  const selectAll = document.querySelector('.select-all');
+  const clearAll = document.querySelector('.clear-selection');
 
-  console.log(checkboxes);
+  let lastChecked;
 
   function handleCheck(e){
-    console.log(e.target)
+    // Check if they had the shift key down
+    // AND check that user is checking it
+    let inBetween = false;
+    if (e.shiftKey && this.checked) {
+      //loop over every single checkbox
+      checkboxes.forEach(checkbox => {
+        if (checkbox === this || checkbox === lastChecked) {
+          inBetween = !inBetween;
+        }
+
+        if (inBetween) {
+          checkbox.checked = true;
+        }
+      });
+    }
+    
+    lastChecked = this;
   };
 
-  checkboxes.forEach(checkbox => checkbox.addEventListener('click',handleCheck));
+  function handleClick(e) {
+    console.log()
+    checkboxes.forEach(checkbox => {
+       if (e.target.classList.contains('select-all')) {
+        checkbox.checked = true;
+      } else if (e.target.classList.contains('clear-selection')) {
+        checkbox.checked = false;
+      }
+      });
+  };
+
+  checkboxes.forEach(checkbox => checkbox.addEventListener('click', handleCheck));
+  selectAll.addEventListener('click', handleClick);
+  clearAll.addEventListener('click', handleClick);
 </script>
 </body>
 </html>
