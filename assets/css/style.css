@@ -1,8 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
 
 :root {
-  --background-color: #000000;
-  --text-color: rgb(255, 255, 255);
+  --background-color: #1B1C1E;
+  --color-main: rgb(255, 255, 255);
+  --color-secondary: #3cff00;
+  --color-accent: rgb(2, 119, 27);
   --font-family: 'Righteous', cursive;
 }
 
@@ -14,8 +16,16 @@
 html{
   background-color: var(--background-color);
   font-family: var(--font-family);
-  color: var(--text-color);
+  color: var(--color-main);
   text-align: center;
+}
+
+h3 {
+  margin-bottom: 0.5em;
+}
+
+ul {
+  width: 17rem;
 }
 
 .container {
@@ -49,20 +59,21 @@ header {
 li {
   list-style: inside;
   padding: 6px;
+  text-align: left;
 }
 
 li a {
-  color: #3cff00;
+  color: var(--color-secondary);
 }
 
 li a:hover {
-  color:#ffffff;
+  color: var(--color-main);
   transform: scale(1.1);
   transition: all 0.5s ease;
 }
 
 li a:visited {
-  color: rgb(2, 119, 27);
+  color: var(--color-accent);
   transform: scale(1.1);
   transition: all 0.5s ease;
 }
