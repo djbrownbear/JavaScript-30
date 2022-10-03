@@ -20,6 +20,11 @@
       gap: 1em;
     }
 
+    .actions label {
+      font-weight: 600;
+      color: #dfdfdf;
+    }
+
     .actions button {
       margin-top: 10px;
       padding: 10px;
@@ -77,6 +82,14 @@
       border-left: 1px solid #D1E2FF;
     }
   </style>
+
+  <div class="actions">
+    <form id="addItem">
+      <label for="new-item">New Item</label>
+      <input type="text" id="new-item" name="new-item" />
+      <input type="submit" value="Submit" />
+    </form>
+  </div>
 
   <div class="actions">
     <button class="select-all" type="button">Select All</button>
@@ -168,6 +181,30 @@
   checkboxes.forEach(checkbox => checkbox.addEventListener('click', handleCheck));
   selectAll.addEventListener('click', handleClick);
   clearAll.addEventListener('click', handleClick);
+
+  itemForm = document.querySelector('#addItem');
+  inbox = document.querySelector('.inbox');
+
+  itemForm.addEventListener("submit", handleSubmit)
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    const newCheckbox = document.createElement('input');
+    newCheckbox.setAttribute("type", "checkbox");
+
+    const item = document.createElement('p');
+    item.textContent = e.target.elements["new-item"].value;
+
+    const fragment = document.createDocumentFragment();
+    const mydiv = fragment.appendChild(document.createElement('div'));
+    mydiv.append(newCheckbox, item);
+    fragment.firstElementChild.classList.add("item");
+
+    inbox.appendChild(fragment);
+  };
+
+
 </script>
 </body>
 </html>
