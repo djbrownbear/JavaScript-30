@@ -141,7 +141,7 @@
   </div>
 
 <script>
-  const checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]');
+  let checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]');
   const selectAll = document.querySelector('.select-all');
   const clearAll = document.querySelector('.clear-selection');
 
@@ -201,7 +201,10 @@
     mydiv.append(newCheckbox, item);
     fragment.firstElementChild.classList.add("item");
 
-    inbox.appendChild(fragment);
+    // add new item to the list and
+    // update selector for selectAll and clearAll events
+    inbox.append(fragment);
+    checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]')
   };
 
 
