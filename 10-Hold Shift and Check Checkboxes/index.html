@@ -204,7 +204,8 @@
     // add new item to the list and
     // update selector for selectAll and clearAll events
     inbox.append(fragment);
-    checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]')
+    checkboxes = document.querySelectorAll('.inbox input[type="checkbox"]');
+    checkboxes.forEach(checkbox => checkbox.addEventListener('click', handleCheck));
   };
 
 
