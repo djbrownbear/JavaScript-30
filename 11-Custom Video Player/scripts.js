@@ -19,18 +19,15 @@ function togglePlay() {
 
 function updateButton() {
   const icon = this.paused ? '►' : '❚ ❚';
-  console.log(icon);
   toggle.textContent = icon;
 }
 
 function skip() {
-  console.log(this.dataset.skip);
   video.currentTime += parseFloat(this.dataset.skip);
 }
 
 function handleRangeUpdate() {
   video[this.name] = this.value;
-  console.log(`${this.name} is ${this.value}`);
 }
 
 function handleProgress() {
